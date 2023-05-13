@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.capstone.openapi.OpenMapper">
+
+    <!-- tb_comment 테이블 전체 컬럼 -->
+    <sql id="hospitalColumns">
+        id
+        , hid
+        , uid
+        , rating
+        , comment
+    </sql>
+
+
+    <!-- tb_comment 테이블 전체 컬럼 -->
+    <sql id="pharmacyColumns">
+        id
+        , pid
+        , uid
+        , rating
+        , comment
+    </sql>
+
+
+    <!-- 댓글 저장 -->
+    <insert id="saveHospital" parameterType="com.example.capstone.openapi.HospitalVO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO hospital_rating (
+        <include refid="hospitalColumns" />
+        ) VALUES (
+        #{id}
+        , #{hid}
+        , #{uid}
+        , #{rating}
+        , #{comment}
+        )
+    </insert>
+
+
+    <!-- 댓글 저장 -->
+    <insert id="savePharmacy" parameterType="com.example.capstone.openapi.PharmacyVO" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pharmacy_rating (
+        <include refid="pharmacyColumns" />
+        ) VALUES (
+        #{id}
+        , #{pid}
+        , #{uid}
+        , #{rating}
+        , #{comment}
+        )
+    </insert>
+
+
+    <!-- 댓글 상세정보 조회 -->
+    <select id="findByIdHospital" parameterType="int" resultType="com.example.capstone.openapi.HospitalVO">
+        SELECT
+        <include refid="hospitalColumns" />
+        FROM
+        hospital_rating
+        WHERE
+        id = #{value}
+    </select>
+
+
+    <!-- 댓글 상세정보 조회 -->
+    <select id="findByIdPharmacy" parameterType="int" resultType="com.example.capstone.openapi.PharmacyVO">
+        SELECT
+        <include refid="pharmacyColumns" />
+        FROM
+        pharmacy_rating
+        WHERE
+        id = #{value}
+    </select>
+
+
+    <!-- 댓글 상세정보 조회 -->
+    <select id="findByHid" parameterType="long" resultType="com.example.capstone.openapi.HospitalVO">
+        SELECT
+        <include refid="hospitalColumns" />
+        FROM
+        hospital_rating
+        WHERE
+        hid = #{value}
+    </select>
+
+
+    <!-- 댓글 상세정보 조회 -->
+    <select id="findByPid" parameterType="long" resultType="com.example.capstone.openapi.PharmacyVO">
+        SELECT
+        <include refid="pharmacyColumns" />
+        FROM
+        pharmacy_rating
+        WHERE
+        pid = #{value}
+    </select>
+
+</mapper>
